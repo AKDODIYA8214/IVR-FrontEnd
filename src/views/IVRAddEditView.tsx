@@ -5,13 +5,23 @@ import "@xyflow/react/dist/style.css";
 import CustomPanel from "./IVR/componets/custom-components/CustomPanel";
 import { Box, Card } from "@mui/material";
 import { IVRContextProvider } from "./IVRContext";
-const nodeTypes = {};
+import { LuaNode } from "./IVR/componets/nodes/LuaNode";
+
+const nodeTypes = {
+  luanode: LuaNode,
+};
 
 const defaultEdgeOptions = {
   animated: true,
 };
 
-const initialNodes: any[] = [];
+const initialNodes: any[] = [
+  {
+    id: "1",
+    type: "luanode",
+    position: { x: 100, y: 100 },
+  },
+];
 
 let id = 0;
 const getId = () => `node_${id++}`;
