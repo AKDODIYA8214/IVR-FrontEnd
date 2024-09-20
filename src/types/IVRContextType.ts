@@ -5,11 +5,13 @@ export enum IVRActionType {
   CHANGE_NAME = "CHANGE_NAME",
   CHANGE_LANGUAGE = "CHANGE_LANGUAGE",
   CHANGE_EXTENTION = "CHANGE_EXTENTION",
+  UPDATE_JSON_DATA = "UPDATE_JSON_DATA",
 }
 export interface IVRState {
   ivrName: string;
   language: string;
   ivrExtention: string;
+  jsonData: Object;
 }
 export interface IVRAction {
   type: IVRActionType;

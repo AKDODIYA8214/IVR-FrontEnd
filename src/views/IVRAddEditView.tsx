@@ -4,7 +4,7 @@ import { ReactFlow, Controls, Background, Panel, useNodesState, useEdgesState, a
 import "@xyflow/react/dist/style.css";
 import CustomPanel from "./IVR/componets/CustomPanel";
 import { Box, Card } from "@mui/material";
-import { IVRContextProvider } from "./IVRContext";
+import { IVRContextProvider, useIVRContext } from "./IVRContext";
 import IVRNode from "./IVR/componets/nodes/IVRNode";
 import { TimeNode } from "./IVR/componets/nodes/TimeNode";
 import APINode from "./IVR/componets/nodes/ApiNode";
@@ -22,6 +22,7 @@ import { LangNode } from "./IVR/componets/nodes/LangNode";
 import { CallbackNode } from "./IVR/componets/nodes/CallbackNode";
 import { SessionNode } from "./IVR/componets/nodes/SessionNode";
 import CustomDrawer from "./IVR/drawer/CustomDrawer";
+import { IVRActionType } from "@/types/IVRContextType";
 
 export interface drawerProps {
   open: boolean;
@@ -57,6 +58,7 @@ let id = 0;
 const getId = () => uuidv4();
 const nodeMap = new Map();
 export default function IVRAddEditView() {
+  const { state, dispatch } = useIVRContext();
   const [nodes, setNodes] = useNodesState<any>(initialNodes);
   const [edges, setEdges] = useEdgesState<any>([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any | null>(null);
@@ -148,7 +150,14 @@ export default function IVRAddEditView() {
 
   const onNodeClick = (event: any, node: any) => {
     console.log("Node clicked:", { event }, { node });
-    setDrawer({ open: true, node: node, onClose: closeDrawer, setData: () => {} });
+    setDrawer({
+      open: true,
+      node: node,
+      onClose: closeDrawer,
+      setData: (data) => {
+        dispatch({ type: IVRActionType.UPDATE_JSON_DATA, payload: { ...state, jsonData: data } });
+      },
+    });
   };
 
   const proOptions = { hideAttribution: true };
