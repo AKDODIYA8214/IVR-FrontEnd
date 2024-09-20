@@ -6,12 +6,14 @@ import { createContext, useReducer, useContext, Dispatch, ReactNode } from "reac
 
 // Define the reducer function
 
-const initialState: IVRState = { ivrName: "", language: "en" };
+const initialState: IVRState = { ivrName: "", language: "en", ivrExtention: "" };
 function ivrContextReducer(state: IVRState, action: IVRAction): IVRState {
   switch (action.type) {
     case IVRActionType.CHANGE_NAME:
       return action.payload;
     case IVRActionType.CHANGE_LANGUAGE:
+      return action.payload;
+    case IVRActionType.CHANGE_EXTENTION:
       return action.payload;
     default:
       throw new Error(`Unknown action: ${action.type}`);
