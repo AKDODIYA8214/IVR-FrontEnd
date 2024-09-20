@@ -19,7 +19,7 @@ export function MenuNode() {
         className="!bg-red-500"
       />
       <Handle
-        id="start"
+        id="start-menu"
         type="source"
         position={Position.Right}
         style={{

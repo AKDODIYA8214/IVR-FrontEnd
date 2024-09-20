@@ -63,7 +63,7 @@ export default function CaseWhen({ id }) {
         <Box className="p-4 border border-blue-400 relative" >
 
         <Handle
-          id="source"
+          id="start"
           type="source"
           position={Position.Right}
           style={{
