@@ -6,9 +6,13 @@ import CustomPanel from "./IVR/componets/custom-components/CustomPanel";
 import { Box, Card } from "@mui/material";
 import { IVRContextProvider } from "./IVRContext";
 import { LuaNode } from "./IVR/componets/nodes/LuaNode";
+import IVRNode from "./IVR/componets/nodes/IVRNode";
+import { TimeNode } from "./IVR/componets/nodes/TimeNode";
 
 const nodeTypes = {
   luanode: LuaNode,
+  ivrnode:IVRNode,
+  timenode:TimeNode,
 };
 
 const defaultEdgeOptions = {
@@ -19,6 +23,16 @@ const initialNodes: any[] = [
   {
     id: "1",
     type: "luanode",
+    position: { x: 100, y: 100 },
+  },
+  {
+    id: "2",
+    type: "ivrnode",
+    position: { x: 100, y: 100 },
+  },
+  {
+    id: "3",
+    type: "timenode",
     position: { x: 100, y: 100 },
   },
 ];
