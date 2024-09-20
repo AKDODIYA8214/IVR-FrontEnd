@@ -1,25 +1,12 @@
 "use client";
+import { IVRAction, IVRActionType, IVRContextType, IVRState } from "@/types/IVRContextType";
 import { createContext, useReducer, useContext, Dispatch, ReactNode } from "react";
 
 // Define the initial state
 const initialState = { count: 0 };
 
 // Define the reducer function
-export enum IVRActionType {
-  INITIALIZE_DATA = "INITIALIZE_DATA",
-}
-export interface IVRState {
-  count: number;
-}
-interface IVRAction {
-  type: IVRActionType;
-  payload: IVRState;
-}
 
-type IVRContextType = {
-  state: IVRState;
-  dispatch: Dispatch<IVRAction>;
-};
 function ivrContextReducer(state: IVRState, action: IVRAction): IVRState {
   switch (action.type) {
     case IVRActionType.INITIALIZE_DATA:

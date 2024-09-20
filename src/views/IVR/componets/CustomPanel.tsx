@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { SvgIcon, Tooltip } from "@mui/material";
 import { GenralControlData } from "@/views/IVR/configs/ControllerNodeData";
+import { useIVRContext } from "@/views/IVRContext";
 function CustomPanel() {
+  const { state, dispatch } = useIVRContext();
   const [isGeneralControlsOpen, setIsGeneralControlOpen] = useState(true);
   const [isAskQuestionOpen, setIsAskQuestion] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");

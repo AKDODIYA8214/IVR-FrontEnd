@@ -1,3 +1,4 @@
+import TimerIcon from "@mui/icons-material/Timer";
 export const GenralControlData = [
   {
     id: 1,
@@ -16,5 +17,11 @@ export const GenralControlData = [
         />
       </svg>
     ),
+  },
+  {
+    id: 2,
+    name: "timenode",
+    type: "timenode",
+    svg: <TimerIcon className="text-blue-600" fontSize="large" />,
   },
 ];

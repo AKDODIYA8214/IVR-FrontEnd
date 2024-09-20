@@ -2,7 +2,7 @@
 import React, { useCallback, useState } from "react";
 import { ReactFlow, Controls, Background, Panel, useNodesState, useEdgesState, addEdge, applyNodeChanges, applyEdgeChanges, ReactFlowProvider, MiniMap, BackgroundVariant } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import CustomPanel from "./IVR/componets/custom-components/CustomPanel";
+import CustomPanel from "./IVR/componets/CustomPanel";
 import { Box, Card } from "@mui/material";
 import { IVRContextProvider } from "./IVRContext";
 import { LuaNode } from "./IVR/componets/nodes/LuaNode";
@@ -11,8 +11,8 @@ import { TimeNode } from "./IVR/componets/nodes/TimeNode";
 
 const nodeTypes = {
   luanode: LuaNode,
-  ivrnode:IVRNode,
-  timenode:TimeNode,
+  ivrnode: IVRNode,
+  timenode: TimeNode,
 };
 
 const defaultEdgeOptions = {
@@ -91,7 +91,7 @@ export default function IVRAddEditView() {
   return (
     <IVRContextProvider>
       <Card className="h-full w-full">
-        <div className="flex h-screen w-screen  min-h-[500px] max-h-[100vh]">
+        <div className="flex h-full w-full  min-h-[500px] max-h-[100vh]">
           <div className="w-1/6">
             <CustomPanel />
           </div>
