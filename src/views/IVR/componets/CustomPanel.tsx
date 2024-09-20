@@ -65,7 +65,7 @@ function CustomPanel() {
               <>
                 <div className="general-controls my-3 border rounded-xl">
                   <div className="rounded-xl overflow-hidden">
-                    <div className="p-1 flex justify-between items-center cursor-pointer bg-blue-400" onClick={toggleGeneralControl}>
+                    <div className="p-1 flex justify-between items-center cursor-pointer bg-blue-500" onClick={toggleGeneralControl}>
                       <span className="font-medium text-white">General Controls</span>
                       {isGeneralControlsOpen ? (
                         <SvgIcon className="text-white">
