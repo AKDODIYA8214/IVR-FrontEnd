@@ -54,8 +54,8 @@ let id = 0;
 const getId = () => uuidv4();
 const nodeMap=new Map();
 export default function IVRAddEditView() {
-  const [nodes, setNodes] = useNodesState(initialNodes);
-  const [edges, setEdges] = useEdgesState([]);
+  const [nodes, setNodes] = useNodesState<any>(initialNodes);
+  const [edges, setEdges] = useEdgesState<any>([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any | null>(null);
 
   // const onConnect = useCallback((connection: any) => setEdges((eds: any) => addEdge({ ...connection, type: "simplebezier" }, eds) as any), [setEdges]);
@@ -68,7 +68,7 @@ export default function IVRAddEditView() {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
-  const validate=(allowedMultiple:Boolean,node,source)=>{
+  const validate=(node,source)=>{
         if(source=='error'&&node.error>0) return false;
         else if(source=='timeout'&&node.timeout>0) return false;
         else if(source=='invalid'&&node.invalid>0) return false;
@@ -80,23 +80,23 @@ export default function IVRAddEditView() {
         else return true;
   }
   const onConnect = useCallback((connection: any) => {
-    setEdges((prevEdges: any) => {
+    setEdges((prevEdges: any[]) => {
       const { source, target, sourceHandle, targetHandle } = connection;
       
       const nodeValidation=nodeMap.get(source);
-      if(validate(nodeValidation.allowedMultiple,nodeValidation,source)){
-         return;
+      console.log(nodeValidation);
+      if(!validate(nodeValidation,sourceHandle)){
+         return prevEdges;
       }
       
     //  nodeValidation
-    if(source=='error') nodeValidation.error++;
-    else if(source=='timeout') nodeValidation.timeout++;
-    else if(source=='invalid') nodeValidation.invalid++;
-    else if(source=='target') nodeValidation.target++;
-    else if(source=='visitlimit') nodeValidation.visitlimit++;
-    else if(source=='start-menu'||source=='start-menu-timenode'||source=='start') nodeValidation.source++;
-
-    nodeMap.set(id,nodeValidation);
+     console.log(sourceHandle,);
+    if(sourceHandle=='error') nodeMap.get(source)['error']++;
+    else if(sourceHandle=='timeout') nodeMap.get(source)['timeout']++;
+    else if(sourceHandle=='invalid') nodeMap.get(source)['invalid']++;
+    else if(sourceHandle=='target') nodeMap.get(source)['target']++;
+    else if(sourceHandle=='visitlimit') nodeMap.get(source)['visitlimit']++;
+    else if(sourceHandle=='start-menu'||sourceHandle=='start-menu-timenode'||sourceHandle=='start') nodeMap.get(source)['source']++;
       const customEdgeId = `${source}-${target}`;
       const newEdge = {
         ...connection,
