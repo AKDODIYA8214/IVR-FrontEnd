@@ -13,10 +13,10 @@ export function PlayMessageNode() {
   return (
     <>
     <Handle
-        id="error"
+        id="target"
         type="target"
         position={Position.Left}
-        className="!bg-red-500"
+        className="!bg-yellow-500"
       />
       <Handle id ='start' type="source" position={Position.Right} className='!bg-green-500' />
       <Card className='p-4 border border-orange-600'>

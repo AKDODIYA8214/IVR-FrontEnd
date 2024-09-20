@@ -13,10 +13,10 @@ export function MenuNode() {
   return (
     <>
       <Handle
-        id="error"
+        id="target"
         type="target"
         position={Position.Left}
-        className="!bg-red-500"
+        className="!bg-yellow-500"
       />
       <Handle
         id="start-menu"
@@ -34,12 +34,11 @@ export function MenuNode() {
         type="source"
         position={Position.Right}
         style={{
-          background: "yellow",
           borderRadius: "50%",
           position: "absolute",
           top: "65%",
         }}
-        className="!bg-yellow-500"
+        className="!bg-orange-500"
       />
 
       <Handle

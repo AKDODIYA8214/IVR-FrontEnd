@@ -59,9 +59,9 @@ export default function CaseWhen({ id }) {
         
         onClick={toggleToolbox} // Show toolbox on card click
       >
-        {/* Toolbox for delete action */}
         <Box className="p-4 border border-blue-400 relative" >
-
+        {/* Toolbox for delete action */}
+        <Handle id='target' type="target" position={Position.Left} className='!bg-yellow-500' />
         <Handle
           id="start"
           type="source"

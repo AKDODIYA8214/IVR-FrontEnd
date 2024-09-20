@@ -11,7 +11,7 @@ export default function UserFeedback() {
   return (
     <>
       <Card className='p-4 border border-blue-400'>
-      <Handle id='connection' type="target" position={Position.Left} className='!bg-yellow-500'/>
+      <Handle id='target' type="target" position={Position.Left} className='!bg-yellow-500'/>
       <Handle
           id="start"
           type="source"
@@ -23,8 +23,7 @@ export default function UserFeedback() {
             top:'35%',           // Custom right position (a little outside the node)
           }}
         />
-      <Handle id='error' type="source" position={Position.Right} style={{
-            background: 'green',  
+      <Handle id='error' type="source" position={Position.Right} style={{ 
             borderRadius: '50%',
             position: 'absolute',
             top:'65%',         

@@ -12,7 +12,7 @@ export function HangupNode() {
  
   return (
     <>
-    <Handle id='target' type="target" position={Position.Left} className='!bg-red-500'/>
+    <Handle id='target' type="target" position={Position.Left} className='!bg-yellow-500'/>
       <Card className='p-4 border border-red-400'>
        <CallEndIcon className='text-red-600' fontSize='large'/>
        </Card>
