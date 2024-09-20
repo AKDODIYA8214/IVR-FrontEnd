@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import { TextField, SvgIcon, Tooltip, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { TextField, SvgIcon, Tooltip, FormControl, InputLabel, Select, MenuItem, Button } from "@mui/material";
 import { GenralControlData } from "@/views/IVR/configs/ControllerNodeData";
 import { useIVRContext } from "@/views/IVRContext";
 import { IVRActionType } from "@/types/IVRContextType";
@@ -52,6 +52,14 @@ function CustomPanel() {
                 })}
               </Select>
             </FormControl>
+            <div className="flex justify-start items-center w-full gap-2">
+              <Button variant="contained" color="primary" size="small">
+                Save
+              </Button>
+              <Button variant="outlined" color="primary" size="small">
+                cancel
+              </Button>
+            </div>
 
             {!isAskQuestionOpen && (
               <>
