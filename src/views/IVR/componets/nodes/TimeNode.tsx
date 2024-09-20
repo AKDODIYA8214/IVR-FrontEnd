@@ -12,10 +12,10 @@ export function TimeNode() {
  
   return (
     <>
-      <Handle type="target" position={Position.Top} />
+      {/* <Handle type="target" position={Position.Top} />
       <Handle type="target" position={Position.Left} />
       <Handle type="target" position={Position.Right} />
-      <Handle type="source" position={Position.Bottom}/>
+      <Handle type="source" position={Position.Bottom}/> */}
       <Card className='p-4 border border-blue-400'>
        <TimerIcon className='text-blue-600' fontSize='large'/>
        </Card>

@@ -5,14 +5,18 @@ import "@xyflow/react/dist/style.css";
 import CustomPanel from "./IVR/componets/CustomPanel";
 import { Box, Card } from "@mui/material";
 import { IVRContextProvider } from "./IVRContext";
-import { LuaNode } from "./IVR/componets/nodes/LuaNode";
 import IVRNode from "./IVR/componets/nodes/IVRNode";
 import { TimeNode } from "./IVR/componets/nodes/TimeNode";
+import APINode from "./IVR/componets/nodes/ApiNode";
+import UserFeedback from "./IVR/componets/nodes/UserFeedback";
+import CaseWhen from "./IVR/componets/nodes/CaseWhen";
 
 const nodeTypes = {
-  luanode: LuaNode,
   ivrnode: IVRNode,
   timenode: TimeNode,
+  apinode:APINode,
+  userfeedback:UserFeedback,
+  casewhen:CaseWhen,
 };
 
 const defaultEdgeOptions = {
