@@ -28,12 +28,12 @@ const initialNodes: any[] = [
   {
     id: "2",
     type: "ivrnode",
-    position: { x: 100, y: 100 },
+    position: { x: 110, y: 110 },
   },
   {
     id: "3",
     type: "timenode",
-    position: { x: 100, y: 100 },
+    position: { x: 120, y: 120 },
   },
 ];
 
