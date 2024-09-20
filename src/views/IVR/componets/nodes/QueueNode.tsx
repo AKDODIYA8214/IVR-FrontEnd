@@ -12,10 +12,12 @@ export function QueueNode() {
  
   return (
     <>
-      {/* <Handle type="target" position={Position.Top} />
-      <Handle type="target" position={Position.Left} />
-      <Handle type="target" position={Position.Right} />
-      <Handle type="source" position={Position.Bottom}/> */}
+       <Handle
+        id="error"
+        type="target"
+        position={Position.Left}
+        className="!bg-red-500"
+      />
       <Card className='p-4 border border-blue-300'>
        <ShuffleIcon className='text-blue-300' fontSize='large'/>
        </Card>
