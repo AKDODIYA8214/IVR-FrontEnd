@@ -12,6 +12,10 @@ import UserFeedback from "./IVR/componets/nodes/UserFeedback";
 import CaseWhen from "./IVR/componets/nodes/CaseWhen";
 import {v4 as uuidv4} from 'uuid';
 import { isGeneratorFunction } from "util/types";
+import { HangupNode } from "./IVR/componets/nodes/HangupNode";
+import { MenuNode } from "./IVR/componets/nodes/MenuNode";
+import { QueueNode } from "./IVR/componets/nodes/QueueNode";
+import { PlayMessageNode } from "./IVR/componets/nodes/PlayMessageNode";
 
 const nodeTypes = {
   ivrnode: IVRNode,
@@ -19,6 +23,10 @@ const nodeTypes = {
   apinode:APINode,
   userfeedback:UserFeedback,
   casewhen:CaseWhen,
+  hangupnode:HangupNode,
+  menunode:MenuNode,
+  queuenode:QueueNode,
+  playmessagenode:PlayMessageNode
 };
 
 const defaultEdgeOptions = {
@@ -56,48 +64,31 @@ export default function IVRAddEditView() {
   const onConnect = useCallback((connection: any) => {
     setEdges((prevEdges: any) => {
       const { source, target, sourceHandle, targetHandle } = connection;
+      console.log(sourceHandle)
+      console.log(targetHandle)
   
       const customEdgeId = `${source}-${target}`;
-      
-      // Use the previous state to access the most recent nodes
-      // const sourceNode = nodes.find((node) => {
-        
-      //   return node.id === source; // Check for a match
-      // });
-      
-      
-      // // Check if the source node allows multiple edges
-      // if (sourceNode && !sourceNode.allowMultipleEdges) {
-      //   // Check if the source node already has an edge
-      //   const existingEdge = prevEdges.find((edge) => edge.source === source);
-        
-      //   if (existingEdge) {
-      //     console.log(`Connection denied: Node '${source}' allows only one outgoing edge.`);
-      //     return prevEdges; // Return the current edges without adding a new one
-      //   }
-      // }
-      const {edges,allwoedMultiple}=nodeMap.get(id);
-      if(edges>1&&allwoedMultiple===true){
-        return;
+     const {edgesConnection,edgesError,allwoedMultiple}=nodeMap.get(source);
+     console.log(edges);
+     console.log(allwoedMultiple);
+      if(edgesError>0||(edgesConnection>0&&allwoedMultiple===false)){
+        return ;
       }
-      nodeMap.get(id)['edges']++;
+      nodeMap.get(source)['edges']++;
       const newEdge = {
         ...connection,
         id: customEdgeId,
         type: "simplebezier",
       };
       
-      console.log("New edge created:", newEdge);
       
-      // Return updated edges array
       return [...prevEdges, newEdge];
     });
-  }, [nodes, setEdges]); // Make sure to include nodes and setEdges as dependencies
+  }, [nodes, setEdges]); 
   
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault();
-      console.log(event.dataTransfer.getData("application/reactflow"))
       const type = event.dataTransfer.getData("application/reactflow");
 
       if (typeof type === "undefined" || !type) {
@@ -108,14 +99,14 @@ export default function IVRAddEditView() {
         x: event.clientX,
         y: event.clientY,
       });
-
+      const uid=getId();
       const newNode = {
-        id: getId(),
+        id: uid,
         type: type,
         position,
         data: { label: `${type} node` },
       };
-      nodeMap.set(id,{edges:0,allwoedMultiple:type=='menunode'?true:false});
+      nodeMap.set(uid,{edgesConnection:0,edgesError:0,allwoedMultiple:type=='menunode'?true:false});
       setNodes((nds) => nds.concat(newNode));
     },
     [reactFlowInstance]

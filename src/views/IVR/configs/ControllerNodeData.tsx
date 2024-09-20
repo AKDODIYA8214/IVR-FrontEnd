@@ -1,6 +1,11 @@
 import TimerIcon from "@mui/icons-material/Timer";
 import { Icon, SvgIcon, Typography } from "@mui/material";
 import { TbApi,TbMessageUser,TbBinaryTree2 } from "react-icons/tb";
+import CallEndIcon from '@mui/icons-material/CallEnd';
+import MenuIcon from '@mui/icons-material/Menu';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+
 export const GenralControlData = [
   {
     id: 1,
@@ -159,6 +164,30 @@ export const GenralControlData = [
     name: "casewhennode",
     type: "casewhen",
     svg: <TbBinaryTree2 />,
+  },
+  {
+    id: 7,
+    name: "hangupnode",
+    type: "hangupnode",
+    svg: <CallEndIcon className="text-red-600" fontSize="large" />,
+  },
+  {
+    id: 8,
+    name: "menunode",
+    type: "menunode",
+    svg: <MenuIcon className="text-orange-600" fontSize="large" />,
+  },
+  {
+    id: 9,
+    name: "queuenode",
+    type: "queuenode",
+    svg: <ShuffleIcon className="text-blue-300" fontSize="large" />,
+  },
+  {
+    id: 10,
+    name: "playmessagenode",
+    type: "playmessagenode",
+    svg: <VolumeUpIcon className="text-orange-600" fontSize="large" />,
   },
 ];
 {/* <TbBinaryTree2 size={30}/> */}

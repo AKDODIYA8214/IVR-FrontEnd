@@ -11,7 +11,7 @@ export default function UserFeedback() {
   return (
     <>
       <Card className='p-4 border border-blue-400'>
-      <Handle id='connection' type="source" position={Position.Left} className='!bg-yellow-500'/>
+      <Handle id='connection' type="target" position={Position.Left} className='!bg-yellow-500'/>
       <Handle
           id="source"
           type="source"
