@@ -10,6 +10,7 @@ export default function CaseWhen({ id }) {
   const toolboxRef = useRef(null); // Ref to the toolbox
 
   // Handle node deletion
+ 
   const handleDelete = useCallback(() => {
     setNodes((nodes) => nodes.filter((node) => node.id !== id));
   }, [id, setNodes]);

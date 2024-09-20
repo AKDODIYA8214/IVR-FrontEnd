@@ -9,10 +9,8 @@ export default function IVRNode() {
 
   return (
     <>
-
-
       <Card className='p-4 border border-blue-400'>
-      <Handle id='connection' type="source" position={Position.Left} className='!bg-yellow-500'/>
+      <Handle id='connection' type="target" position={Position.Left} className='!bg-yellow-500'/>
        <SvgIcon>
        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
       <path
