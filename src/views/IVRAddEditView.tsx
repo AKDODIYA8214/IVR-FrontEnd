@@ -163,7 +163,7 @@ export default function IVRAddEditView() {
   const proOptions = { hideAttribution: true };
   const defaultViewport = { x: 0, y: 0, zoom: 1.8 };
   return (
-    <IVRContextProvider>
+    <>
       <Card className="h-full w-full">
         <div className="flex h-full w-full  min-h-[500px] max-h-[100vh]">
           <div className="w-1/6">
@@ -183,6 +183,6 @@ export default function IVRAddEditView() {
         </div>
       </Card>
       <CustomDrawer drawer={drawer}></CustomDrawer>
-    </IVRContextProvider>
+    </>
   );
 }

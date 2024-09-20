@@ -1,8 +1,8 @@
-import IVRAddEditView from "@/views/IVRAddEditView";
+import IVRWithContext from "@/views/IVRWithContext";
 import React from "react";
 
 function page() {
-  return <IVRAddEditView></IVRAddEditView>;
+  return <IVRWithContext></IVRWithContext>;
 }
 
 export default page;
