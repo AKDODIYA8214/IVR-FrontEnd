@@ -33,14 +33,7 @@ const defaultEdgeOptions = {
   animated: true,
 };
 
-const initialNodes: any[] = [
-  {
-    id: "2",
-    type: "ivrnode",
-    position: { x: 110, y: 110 },
-  },
-  
-];
+const initialNodes: any[] = [];
 
 let id = 0;
 const getId = () => uuidv4();
@@ -89,6 +82,7 @@ export default function IVRAddEditView() {
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault();
+      console.log(event.dataTransfer.getData("application/reactflow"));
       const type = event.dataTransfer.getData("application/reactflow");
 
       if (typeof type === "undefined" || !type) {
@@ -106,7 +100,8 @@ export default function IVRAddEditView() {
         position,
         data: { label: `${type} node` },
       };
-      nodeMap.set(uid,{edgesConnection:0,edgesError:0,allwoedMultiple:type=='menunode'?true:false});
+      console.log(newNode)
+
       setNodes((nds) => nds.concat(newNode));
     },
     [reactFlowInstance]
