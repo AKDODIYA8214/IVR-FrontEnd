@@ -4,7 +4,7 @@ import { ReactFlow, Controls, Background, Panel, useNodesState, useEdgesState, a
 import "@xyflow/react/dist/style.css";
 import CustomPanel from "./IVR/componets/custom-components/CustomPanel";
 import { Box, Card } from "@mui/material";
-
+import { IVRContextProvider } from "./IVRContext";
 const nodeTypes = {};
 
 const defaultEdgeOptions = {
@@ -65,23 +65,25 @@ export default function IVRAddEditView() {
   const proOptions = { hideAttribution: true };
   const defaultViewport = { x: 0, y: 0, zoom: 1.8 };
   return (
-    <Card className="h-full w-full">
-      <div className="flex h-screen w-screen  min-h-[500px] max-h-[100vh]">
-        <div className="w-1/6">
-          <CustomPanel />
+    <IVRContextProvider>
+      <Card className="h-full w-full">
+        <div className="flex h-screen w-screen  min-h-[500px] max-h-[100vh]">
+          <div className="w-1/6">
+            <CustomPanel />
+          </div>
+          <div className="w-5/6 p-1 h-full">
+            <Box className={`border border-solid overflow-hidden h-full`}>
+              <ReactFlowProvider>
+                <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodeClick={onNodeClick} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} proOptions={proOptions} onConnect={onConnect} onDrop={onDrop} onDragOver={onDragOver} onInit={setReactFlowInstance} defaultViewport={defaultViewport} defaultEdgeOptions={defaultEdgeOptions} fitView>
+                  <MiniMap nodeStrokeWidth={3} nodeColor="#e2e2e2" maskColor="rgb(240, 230, 240, 0.6)" zoomable pannable />
+                  <Controls />
+                  <Background variant={BackgroundVariant.Dots} color="#dedede" gap={60} size={3} />
+                </ReactFlow>
+              </ReactFlowProvider>
+            </Box>
+          </div>
         </div>
-        <div className="w-5/6 p-1 h-full">
-          <Box className={`border border-solid overflow-hidden h-full`}>
-            <ReactFlowProvider>
-              <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} onNodeClick={onNodeClick} onNodesChange={onNodesChange} onEdgesChange={onEdgesChange} proOptions={proOptions} onConnect={onConnect} onDrop={onDrop} onDragOver={onDragOver} onInit={setReactFlowInstance} defaultViewport={defaultViewport} defaultEdgeOptions={defaultEdgeOptions} fitView>
-                <MiniMap nodeStrokeWidth={3} nodeColor="#e2e2e2" maskColor="rgb(240, 230, 240, 0.6)" zoomable pannable />
-                <Controls />
-                <Background variant={BackgroundVariant.Dots} color="#dedede" gap={60} size={3} />
-              </ReactFlow>
-            </ReactFlowProvider>
-          </Box>
-        </div>
-      </div>
-    </Card>
+      </Card>
+    </IVRContextProvider>
   );
 }
