@@ -23,6 +23,8 @@ import { LangNode } from "./IVR/componets/nodes/LangNode";
 import PhoneCallbackSharp from "@mui/icons-material/PhoneCallbackSharp";
 import { CallbackNode } from "./IVR/componets/nodes/CallbackNode";
 import { SessionNode } from "./IVR/componets/nodes/SessionNode";
+import { FaSleigh } from "react-icons/fa";
+
 
 const nodeTypes = {
   luanode: LuaNode,
@@ -66,21 +68,37 @@ export default function IVRAddEditView() {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
-
+  const validate=(allowedMultiple:Boolean,node,source)=>{
+    nodeMap.set(uid,{error:0,visitlimit:0,source:0,target:0,invalid:0,timeout:0});
+        if(source=='error'&&node.error>0) return false;
+        else if(source=='timeout'&&node.timeout>0) return false;
+        else if(source=='invalid'&&node.invalid>0) return false;
+        else if(source=='target'&&node.target>=0) return false;
+        else if(source=='visitlimit'&&node.visitlimit>0) return false;
+        else if(source=='start-menu'&&node.source>10) return false;
+        else if(source=='start-menu-timenode'&&node.source>2) return false;
+        else if(source=='start'&&node.source>0) return false;
+        else return true;
+  }
   const onConnect = useCallback((connection: any) => {
     setEdges((prevEdges: any) => {
       const { source, target, sourceHandle, targetHandle } = connection;
-      console.log(sourceHandle)
-      console.log(targetHandle)
-  
-      const customEdgeId = `${source}-${target}`;
-     const {edgesConnection,edgesError,allwoedMultiple}=nodeMap.get(source);
-     console.log(edges);
-     console.log(allwoedMultiple);
-      if(edgesError>0||(edgesConnection>0&&allwoedMultiple===false)){
-        return ;
+      
+      const nodeValidation=nodeMap.get(source);
+      if(validate(nodeValidation.allowedMultiple,nodeValidation,source)){
+         return;
       }
-      nodeMap.get(source)['edges']++;
+      
+    //  nodeValidation
+    if(source=='error') nodeValidation.error++;
+    else if(source=='timeout') nodeValidation.timeout++;
+    else if(source=='invalid') nodeValidation.invalid++;
+    else if(source=='target') nodeValidation.target++;
+    else if(source=='visitlimit') nodeValidation.visitlimit++;
+    else if(source=='start-menu'||source=='start-menu-timenode'||source=='start') nodeValidation.source++;
+
+    nodeMap.set(id,nodeValidation);
+      const customEdgeId = `${source}-${target}`;
       const newEdge = {
         ...connection,
         id: customEdgeId,
@@ -113,9 +131,9 @@ export default function IVRAddEditView() {
         position,
         data: { label: `${type} node` },
       };
-      console.log(newNode);
 
       setNodes((nds) => nds.concat(newNode));
+      nodeMap.set(uid,{error:0,visitlimit:0,source:0,target:0,invalid:0,timeout:0});
     },
     [reactFlowInstance]
   );

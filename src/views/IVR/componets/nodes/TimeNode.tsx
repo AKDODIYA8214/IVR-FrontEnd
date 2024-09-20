@@ -14,7 +14,7 @@ export function TimeNode() {
     <>
       <Handle id='error' type='target' position={Position.Left} className='!bg-red-500'/>
       <Handle id='timeout' type="source" position={Position.Bottom} className='!bg-pink-500'/>
-      <Handle id ='start' type="source" position={Position.Right} className='!bg-green-500' />
+      <Handle id ='start-menu-timenode' type="source" position={Position.Right} className='!bg-green-500' />
       <Card className='p-4 border border-blue-400'>
        <TimerIcon className='text-blue-600' fontSize='large'/>
        </Card>

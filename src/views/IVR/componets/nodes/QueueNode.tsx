@@ -13,7 +13,7 @@ export function QueueNode() {
   return (
     <>
        <Handle
-        id="error"
+        id="start"
         type="target"
         position={Position.Left}
         className="!bg-red-500"

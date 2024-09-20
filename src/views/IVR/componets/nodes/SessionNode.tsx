@@ -7,7 +7,7 @@ import { VscVariableGroup } from "react-icons/vsc";
 export const SessionNode = () => {
   return (
     <>
-      <Handle id='target' type="target" position={Position.Left} />
+      <Handle id='target' type="target" position={Position.Left} className='!red-' />
       <Handle id='start' type="source" position={Position.Right} />
       <Card className='p-4 border border-blue-400'>
        <VscVariableGroup />
