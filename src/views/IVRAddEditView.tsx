@@ -69,7 +69,6 @@ export default function IVRAddEditView() {
     event.dataTransfer.dropEffect = "move";
   }, []);
   const validate=(allowedMultiple:Boolean,node,source)=>{
-    nodeMap.set(uid,{error:0,visitlimit:0,source:0,target:0,invalid:0,timeout:0});
         if(source=='error'&&node.error>0) return false;
         else if(source=='timeout'&&node.timeout>0) return false;
         else if(source=='invalid'&&node.invalid>0) return false;
