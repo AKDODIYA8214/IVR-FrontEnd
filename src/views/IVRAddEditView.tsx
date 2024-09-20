@@ -14,17 +14,19 @@ import { HangupNode } from "./IVR/componets/nodes/HangupNode";
 import { MenuNode } from "./IVR/componets/nodes/MenuNode";
 import { QueueNode } from "./IVR/componets/nodes/QueueNode";
 import { PlayMessageNode } from "./IVR/componets/nodes/PlayMessageNode";
+import { LuaNode } from "./IVR/componets/nodes/LuaNode";
 
 const nodeTypes = {
+  luanode: LuaNode,
   ivrnode: IVRNode,
   timenode: TimeNode,
-  apinode:APINode,
-  userfeedback:UserFeedback,
-  casewhen:CaseWhen,
-  hangupnode:HangupNode,
-  menunode:MenuNode,
-  queuenode:QueueNode,
-  playmessagenode:PlayMessageNode
+  apinode: APINode,
+  userfeedback: UserFeedback,
+  casewhen: CaseWhen,
+  hangupnode: HangupNode,
+  menunode: MenuNode,
+  queuenode: QueueNode,
+  playmessagenode: PlayMessageNode,
 };
 
 const defaultEdgeOptions = {
@@ -72,7 +74,7 @@ export default function IVRAddEditView() {
         position,
         data: { label: `${type} node` },
       };
-      console.log(newNode)
+      console.log(newNode);
 
       setNodes((nds) => nds.concat(newNode));
     },
