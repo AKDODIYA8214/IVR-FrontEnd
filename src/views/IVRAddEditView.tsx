@@ -10,8 +10,7 @@ import { TimeNode } from "./IVR/componets/nodes/TimeNode";
 import APINode from "./IVR/componets/nodes/ApiNode";
 import UserFeedback from "./IVR/componets/nodes/UserFeedback";
 import CaseWhen from "./IVR/componets/nodes/CaseWhen";
-import {v4 as uuidv4} from 'uuid';
-import { isGeneratorFunction } from "util/types";
+import { v4 as uuidv4 } from "uuid";
 import { HangupNode } from "./IVR/componets/nodes/HangupNode";
 import { MenuNode } from "./IVR/componets/nodes/MenuNode";
 import { QueueNode } from "./IVR/componets/nodes/QueueNode";
@@ -20,12 +19,16 @@ import { LuaNode } from "./IVR/componets/nodes/LuaNode";
 import { UserinputNode } from "./IVR/componets/nodes/UserinputNode";
 import { TtsNode } from "./IVR/componets/nodes/TtsNode";
 import { LangNode } from "./IVR/componets/nodes/LangNode";
-import PhoneCallbackSharp from "@mui/icons-material/PhoneCallbackSharp";
 import { CallbackNode } from "./IVR/componets/nodes/CallbackNode";
 import { SessionNode } from "./IVR/componets/nodes/SessionNode";
-import { FaSleigh } from "react-icons/fa";
+import CustomDrawer from "./IVR/drawer/CustomDrawer";
 
-
+export interface drawerProps {
+  open: boolean;
+  node: any;
+  onClose: () => void;
+  setData: (data: any) => void;
+}
 const nodeTypes = {
   luanode: LuaNode,
   ivrnode: IVRNode,
@@ -37,11 +40,11 @@ const nodeTypes = {
   menunode: MenuNode,
   queuenode: QueueNode,
   playmessagenode: PlayMessageNode,
-  userinputnode:UserinputNode,
-  ttsnode:TtsNode,
-  langnode:LangNode,  
-  callbacknode:CallbackNode,
-  sessionnode:SessionNode
+  userinputnode: UserinputNode,
+  ttsnode: TtsNode,
+  langnode: LangNode,
+  callbacknode: CallbackNode,
+  sessionnode: SessionNode,
 };
 
 const defaultEdgeOptions = {
@@ -52,11 +55,15 @@ const initialNodes: any[] = [];
 
 let id = 0;
 const getId = () => uuidv4();
-const nodeMap=new Map();
+const nodeMap = new Map();
 export default function IVRAddEditView() {
   const [nodes, setNodes] = useNodesState<any>(initialNodes);
   const [edges, setEdges] = useEdgesState<any>([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any | null>(null);
+  const [drawer, setDrawer] = useState<drawerProps>({ open: false, node: null, onClose: () => {}, setData: () => {} });
+  const closeDrawer = () => {
+    setDrawer({ open: false, node: null, onClose: () => {}, setData: () => {} });
+  };
 
   // const onConnect = useCallback((connection: any) => setEdges((eds: any) => addEdge({ ...connection, type: "simplebezier" }, eds) as any), [setEdges]);
 
@@ -68,47 +75,49 @@ export default function IVRAddEditView() {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
-  const validate=(node,source)=>{
-        if(source=='error'&&node.error>0) return false;
-        else if(source=='timeout'&&node.timeout>0) return false;
-        else if(source=='invalid'&&node.invalid>0) return false;
-        else if(source=='target'&&node.target>=0) return false;
-        else if(source=='visitlimit'&&node.visitlimit>0) return false;
-        else if(source=='start-menu'&&node.source>10) return false;
-        else if(source=='start-menu-timenode'&&node.source>2) return false;
-        else if(source=='start'&&node.source>0) return false;
-        else return true;
-  }
-  const onConnect = useCallback((connection: any) => {
-    setEdges((prevEdges: any[]) => {
-      const { source, target, sourceHandle, targetHandle } = connection;
-      
-      const nodeValidation=nodeMap.get(source);
-      console.log(nodeValidation);
-      if(!validate(nodeValidation,sourceHandle)){
-         return prevEdges;
-      }
-      
-    //  nodeValidation
-     console.log(sourceHandle,);
-    if(sourceHandle=='error') nodeMap.get(source)['error']++;
-    else if(sourceHandle=='timeout') nodeMap.get(source)['timeout']++;
-    else if(sourceHandle=='invalid') nodeMap.get(source)['invalid']++;
-    else if(sourceHandle=='target') nodeMap.get(source)['target']++;
-    else if(sourceHandle=='visitlimit') nodeMap.get(source)['visitlimit']++;
-    else if(sourceHandle=='start-menu'||sourceHandle=='start-menu-timenode'||sourceHandle=='start') nodeMap.get(source)['source']++;
-      const customEdgeId = `${source}-${target}`;
-      const newEdge = {
-        ...connection,
-        id: customEdgeId,
-        type: "simplebezier",
-      };
-      
-      
-      return [...prevEdges, newEdge];
-    });
-  }, [nodes, setEdges]); 
-  
+  const validate = (node: any, source: any) => {
+    if (source == "error" && node.error > 0) return false;
+    else if (source == "timeout" && node.timeout > 0) return false;
+    else if (source == "invalid" && node.invalid > 0) return false;
+    else if (source == "target" && node.target >= 0) return false;
+    else if (source == "visitlimit" && node.visitlimit > 0) return false;
+    else if (source == "start-menu" && node.source > 10) return false;
+    else if (source == "start-menu-timenode" && node.source > 2) return false;
+    else if (source == "start" && node.source > 0) return false;
+    else return true;
+  };
+  const onConnect = useCallback(
+    (connection: any) => {
+      setEdges((prevEdges: any[]) => {
+        const { source, target, sourceHandle, targetHandle } = connection;
+
+        const nodeValidation = nodeMap.get(source);
+        console.log(nodeValidation);
+        if (!validate(nodeValidation, sourceHandle)) {
+          return prevEdges;
+        }
+
+        //  nodeValidation
+        console.log(sourceHandle);
+        if (sourceHandle == "error") nodeMap.get(source)["error"]++;
+        else if (sourceHandle == "timeout") nodeMap.get(source)["timeout"]++;
+        else if (sourceHandle == "invalid") nodeMap.get(source)["invalid"]++;
+        else if (sourceHandle == "target") nodeMap.get(source)["target"]++;
+        else if (sourceHandle == "visitlimit") nodeMap.get(source)["visitlimit"]++;
+        else if (sourceHandle == "start-menu" || sourceHandle == "start-menu-timenode" || sourceHandle == "start") nodeMap.get(source)["source"]++;
+        const customEdgeId = `${source}-${target}`;
+        const newEdge = {
+          ...connection,
+          id: customEdgeId,
+          type: "simplebezier",
+        };
+
+        return [...prevEdges, newEdge];
+      });
+    },
+    [nodes, setEdges]
+  );
+
   const onDrop = useCallback(
     (event: any) => {
       event.preventDefault();
@@ -123,7 +132,7 @@ export default function IVRAddEditView() {
         x: event.clientX,
         y: event.clientY,
       });
-      const uid=getId();
+      const uid = getId();
       const newNode = {
         id: uid,
         type: type,
@@ -132,13 +141,14 @@ export default function IVRAddEditView() {
       };
 
       setNodes((nds) => nds.concat(newNode));
-      nodeMap.set(uid,{error:0,visitlimit:0,source:0,target:0,invalid:0,timeout:0});
+      nodeMap.set(uid, { error: 0, visitlimit: 0, source: 0, target: 0, invalid: 0, timeout: 0 });
     },
     [reactFlowInstance]
   );
 
   const onNodeClick = (event: any, node: any) => {
-    console.log("Node clicked:", node);
+    console.log("Node clicked:", { event }, { node });
+    setDrawer({ open: true, node: node, onClose: closeDrawer, setData: () => {} });
   };
 
   const proOptions = { hideAttribution: true };
@@ -163,6 +173,7 @@ export default function IVRAddEditView() {
           </div>
         </div>
       </Card>
+      <CustomDrawer drawer={drawer}></CustomDrawer>
     </IVRContextProvider>
   );
 }
