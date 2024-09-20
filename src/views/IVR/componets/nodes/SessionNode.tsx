@@ -1,16 +1,17 @@
 import { useCallback } from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { Avatar, Card, Icon, SvgIcon, Typography } from '@mui/material';
+import { VscVariableGroup } from "react-icons/vsc";
+
 
 export const SessionNode = () => {
   return (
     <>
-      <Handle type="target" position={Position.Top} />
-      <Handle type="target" position={Position.Left} />
-      <Handle type="target" position={Position.Right} />
-      <Handle type="source" position={Position.Bottom}/>
+      <Handle id='target' type="target" position={Position.Left} />
+      <Handle id='start' type="source" position={Position.Right} />
       <Card className='p-4 border border-blue-400'>
-       <Typography className='text-blue-600' fontSize='large'>session variable</Typography>
+       <VscVariableGroup />
+
        </Card>
     </>
   )

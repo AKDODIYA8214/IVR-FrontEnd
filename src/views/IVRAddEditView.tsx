@@ -17,6 +17,12 @@ import { MenuNode } from "./IVR/componets/nodes/MenuNode";
 import { QueueNode } from "./IVR/componets/nodes/QueueNode";
 import { PlayMessageNode } from "./IVR/componets/nodes/PlayMessageNode";
 import { LuaNode } from "./IVR/componets/nodes/LuaNode";
+import { UserinputNode } from "./IVR/componets/nodes/UserinputNode";
+import { TtsNode } from "./IVR/componets/nodes/TtsNode";
+import { LangNode } from "./IVR/componets/nodes/LangNode";
+import PhoneCallbackSharp from "@mui/icons-material/PhoneCallbackSharp";
+import { CallbackNode } from "./IVR/componets/nodes/CallbackNode";
+import { SessionNode } from "./IVR/componets/nodes/SessionNode";
 
 const nodeTypes = {
   luanode: LuaNode,
@@ -29,6 +35,11 @@ const nodeTypes = {
   menunode: MenuNode,
   queuenode: QueueNode,
   playmessagenode: PlayMessageNode,
+  userinputnode:UserinputNode,
+  ttsnode:TtsNode,
+  langnode:LangNode,  
+  callbacknode:CallbackNode,
+  sessionnode:SessionNode
 };
 
 const defaultEdgeOptions = {
