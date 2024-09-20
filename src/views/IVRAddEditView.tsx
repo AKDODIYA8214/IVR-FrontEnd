@@ -10,6 +10,10 @@ import { TimeNode } from "./IVR/componets/nodes/TimeNode";
 import APINode from "./IVR/componets/nodes/ApiNode";
 import UserFeedback from "./IVR/componets/nodes/UserFeedback";
 import CaseWhen from "./IVR/componets/nodes/CaseWhen";
+import { HangupNode } from "./IVR/componets/nodes/HangupNode";
+import { MenuNode } from "./IVR/componets/nodes/MenuNode";
+import { QueueNode } from "./IVR/componets/nodes/QueueNode";
+import { PlayMessageNode } from "./IVR/componets/nodes/PlayMessageNode";
 
 const nodeTypes = {
   ivrnode: IVRNode,
@@ -17,6 +21,10 @@ const nodeTypes = {
   apinode:APINode,
   userfeedback:UserFeedback,
   casewhen:CaseWhen,
+  hangupnode:HangupNode,
+  menunode:MenuNode,
+  queuenode:QueueNode,
+  playmessagenode:PlayMessageNode
 };
 
 const defaultEdgeOptions = {
