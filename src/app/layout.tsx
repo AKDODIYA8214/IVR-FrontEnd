@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`h-[100dvh] w-[100dvw] flex flex-col justify-stretch items-stretch `}>
-        <div className="h-[100px] w-150-px bg-primary flex justify-start items-center p-5  bg-purple-400">
+        <div className="h-[100px] w-150-px bg-primary flex justify-start items-center p-5  bg-blue-400">
           <div className="flex gap-2 justify-center items-center">
             <SvgIcon className="h-12 w-12 ">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
@@ -128,7 +128,7 @@ export default function RootLayout({
                 <path d="M0 0 C2.475 0.495 2.475 0.495 5 1 C3.69593116 3.01920337 2.36176581 5.01924973 1 7 C0.67 7 0.34 7 0 7 C0 4.69 0 2.38 0 0 Z " fill="#9F8A70" transform="translate(455,331)" />
               </svg>
             </SvgIcon>
-            <Typography variant="h5" color="textSecondary">
+            <Typography variant="h5" className="text-white">
               IVR
             </Typography>
           </div>

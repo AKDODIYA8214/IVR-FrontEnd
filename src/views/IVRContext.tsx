@@ -3,14 +3,16 @@ import { IVRAction, IVRActionType, IVRContextType, IVRState } from "@/types/IVRC
 import { createContext, useReducer, useContext, Dispatch, ReactNode } from "react";
 
 // Define the initial state
-const initialState = { count: 0 };
 
 // Define the reducer function
 
+const initialState: IVRState = { ivrName: "", language: "en" };
 function ivrContextReducer(state: IVRState, action: IVRAction): IVRState {
   switch (action.type) {
-    case IVRActionType.INITIALIZE_DATA:
-      return { count: state.count + 1 };
+    case IVRActionType.CHANGE_NAME:
+      return action.payload;
+    case IVRActionType.CHANGE_LANGUAGE:
+      return action.payload;
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
