@@ -2,7 +2,7 @@
 import {  IVRAction, IVRActionType, IVRContextType, IVRState } from "@/types/IVRContextType";
 import { createContext, useReducer, useContext, Dispatch, ReactNode, act } from "react";
 
-const initialState: IVRState = { ivrName: "", language: "en", ivrExtention: "", jsonData:{} };
+const initialState: IVRState = { ivrName: "", language: "en", ivrExtention: "", jsonData:{}, nodesData:[], edgesData:[] };
 function ivrContextReducer(state: IVRState, action: IVRAction): IVRState {
   console.log('-------------------------------------->');
   console.log(action.type);
@@ -14,8 +14,12 @@ function ivrContextReducer(state: IVRState, action: IVRAction): IVRState {
       return {...state,language:action.payload.language};
     case IVRActionType.CHANGE_EXTENTION:
       return {...state,ivrExtention:action.payload.ivrExtention};
-      case IVRActionType.UPDATE_JSON_DATA:
+    case IVRActionType.UPDATE_JSON_DATA:
       return {...state,jsonData:action.payload.jsonData};
+    case IVRActionType.UPDATE_EDGES_DATA:
+      return {...state,edgesData:action.payload.edgesData};
+      case IVRActionType.UPDATE_NODES_DATA:
+        return {...state,nodesData:action.payload.nodesData};
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }

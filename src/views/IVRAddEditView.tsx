@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { ReactFlow, Controls, Background, Panel, useNodesState, useEdgesState, addEdge, applyNodeChanges, applyEdgeChanges, ReactFlowProvider, MiniMap, BackgroundVariant } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import CustomPanel from "./IVR/componets/CustomPanel";
@@ -63,6 +63,16 @@ export default function IVRAddEditView() {
   const [edges, setEdges] = useEdgesState<any>([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<any | null>(null);
   const [drawer, setDrawer] = useState<drawerProps>({ open: false, node: null, onClose: () => {}, setData: () => {} });
+
+  useEffect(()=>{
+    dispatch({
+      type: IVRActionType.UPDATE_EDGES_DATA,
+      payload: {
+        edgesData:edges
+      },
+    });
+  },[edges, nodes])
+
   const closeDrawer = () => {
     setDrawer({ open: false, node: null, onClose: () => {}, setData: () => {} });
   };

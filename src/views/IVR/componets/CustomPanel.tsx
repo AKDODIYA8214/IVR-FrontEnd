@@ -8,12 +8,23 @@ import { IVRActionType } from "@/types/IVRContextType";
 import { languages } from "@/data/languages";
 import { languageType } from "@/types/DataType";
 import { useRouter } from "next/navigation";
-function CustomPanel() {
+
+export interface props {
+  edges: any;
+}
+
+function CustomPanel({edges}:props) {
   const { state, dispatch } = useIVRContext();
   const router = useRouter();
   const onDragStart = (event: any, nodeType: any) => {
     event.dataTransfer.setData("application/reactflow", nodeType);
   };
+
+  const handleIVRAddEdit = () => {
+    console.log(state)
+    console.log(edges)
+  }
+  
 
   return (
     <div>
@@ -62,7 +73,7 @@ function CustomPanel() {
             </FormControl>
 
             <div className="flex justify-start items-center w-full gap-2 mt-3">
-              <Button variant="contained" color="primary" size="small">
+              <Button variant="contained" color="primary" size="small" onClick={handleIVRAddEdit}>
                 Save
               </Button>
               <Button
@@ -101,5 +112,4 @@ function CustomPanel() {
     </div>
   );
 }
-
 export default CustomPanel;
