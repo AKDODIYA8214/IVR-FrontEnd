@@ -76,37 +76,27 @@ export default function IVRAddEditView() {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
   }, []);
-  const validate = (node: any, source: any) => {
-    if (source == "error" && node.error > 0) return false;
-    else if (source == "timeout" && node.timeout > 0) return false;
-    else if (source == "invalid" && node.invalid > 0) return false;
-    else if (source == "target" && node.target >= 0) return false;
-    else if (source == "visitlimit" && node.visitlimit > 0) return false;
-    else if (source == "start-menu" && node.source > 10) return false;
-    else if (source == "start-menu-timenode" && node.source > 2) return false;
-    else if (source == "start" && node.source > 0) return false;
-    else return true;
-  };
+
   const onConnect = useCallback(
     (connection: any) => {
       setEdges((prevEdges: any[]) => {
         const { source, target, sourceHandle, targetHandle } = connection;
 
-        const nodeValidation = nodeMap.get(source);
-        console.log(nodeValidation);
-        if (!validate(nodeValidation, sourceHandle)) {
-          return prevEdges;
-        }
+        // const nodeValidation = nodeMap.get(source);
+        // console.log(nodeValidation);
+        // if (!validate(nodeValidation, sourceHandle)) {
+        //   return prevEdges;
+        // }
 
         //  nodeValidation
-        console.log(sourceHandle);
-        if (sourceHandle == "error") nodeMap.get(source)["error"]++;
-        else if (sourceHandle == "timeout") nodeMap.get(source)["timeout"]++;
-        else if (sourceHandle == "invalid") nodeMap.get(source)["invalid"]++;
-        else if (sourceHandle == "target") nodeMap.get(source)["target"]++;
-        else if (sourceHandle == "visitlimit") nodeMap.get(source)["visitlimit"]++;
-        else if (sourceHandle == "start-menu" || sourceHandle == "start-menu-timenode" || sourceHandle == "start") nodeMap.get(source)["source"]++;
-        const customEdgeId = `${source}-${target}`;
+        // console.log(sourceHandle);
+        // if (sourceHandle == "error") nodeMap.get(source)["error"]++;
+        // else if (sourceHandle == "timeout") nodeMap.get(source)["timeout"]++;
+        // else if (sourceHandle == "invalid") nodeMap.get(source)["invalid"]++;
+        // else if (sourceHandle == "target") nodeMap.get(source)["target"]++;
+        // else if (sourceHandle == "visitlimit") nodeMap.get(source)["visitlimit"]++;
+        // else if (sourceHandle == "start-menu" || sourceHandle == "start-menu-timenode" || sourceHandle == "start") nodeMap.get(source)["source"]++;
+        const customEdgeId = `${source}-${sourceHandle}-${target}-${targetHandle}`;
         const newEdge = {
           ...connection,
           id: customEdgeId,
@@ -142,7 +132,6 @@ export default function IVRAddEditView() {
       };
 
       setNodes((nds) => nds.concat(newNode));
-      nodeMap.set(uid, { error: 0, visitlimit: 0, source: 0, target: 0, invalid: 0, timeout: 0 });
     },
     [reactFlowInstance]
   );

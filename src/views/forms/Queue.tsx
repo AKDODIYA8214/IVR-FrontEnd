@@ -1,15 +1,32 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, Container, Typography, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-
-const Queue: React.FC = () => {
+import { useIVRContext } from '../IVRContext';
+interface Props{
+  setData:Function,
+  nodeid:string
+}
+const Queue = ({setData,nodeid}:Props) => {
   // State to hold form values
   const [queueName, setQueueName] = useState<string>('');
   const [selectedQueue, setSelectedQueue] = useState<string>('');
-
+  const { jsonData } = useIVRContext();
+  // Handler for form submission
+  useEffect(() => {
+    console.log(jsonData);
+  }, [jsonData]);
   // Submit handler
   const handleSubmit = (e: React.FormEvent) => {
+    const queue={
+      type:"transferToQueue",
+      properties:{
+         ivrPropertyName:queueName,
+         data:selectedQueue,
+      },
+      defaultExitNode:"call_hangup",
+    }
+    setData(queue);
     e.preventDefault();
     console.log({
       queueName,

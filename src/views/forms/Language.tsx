@@ -16,7 +16,12 @@ import {
   Box,
 } from '@mui/material';
 
-const Language: React.FC = () => {
+interface Props{
+  setData:Function,
+  nodeid:string
+}
+
+const Language = ({setData,nodeid}:Props) => {
   // State to hold form values
   const [languageMenuName, setLanguageMenuName] = useState<string>('');
   const [greetFile, setGreetFile] = useState<string>('none');
@@ -35,6 +40,21 @@ const Language: React.FC = () => {
 
   // Submit handler
   const handleSubmit = (e: React.FormEvent) => {
+    const language={
+      type:"langMenu",
+      properties:{
+         "assignedDigits":{
+         },
+         "ivrPropertyName":"typeLang",
+         "nextNode":"",
+         "fileToPlay":"cust_input.wav",
+         "timeout":"3000",
+         "maxTries":"4",
+         "invalidInputFileToPlay":"kvwelcome.wav",
+         "inputWaitTimeoutFileToPlay":"gn_GN.wav",
+         "noInputLimitReachedFileToPlay":"Closing_Call.wav"
+      }
+    };
     e.preventDefault();
     console.log({
       languageMenuName,

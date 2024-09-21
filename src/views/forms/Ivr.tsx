@@ -3,7 +3,11 @@
 import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, FormControl, Select, MenuItem, InputLabel } from '@mui/material';
 
-const Ivr: React.FC = () => {
+interface Props{
+  setData:Function,
+  nodeid:string
+}
+const Ivr = ({setData,nodeid}:Props) => {
   // State to hold form values
   const [ivrName, setIvrName] = useState<string>('');
   const [selectedIvr, setSelectedIvr] = useState<string>('');
@@ -11,6 +15,14 @@ const Ivr: React.FC = () => {
   // Submit handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const ivr={
+      type:"ivr",
+      properties:{
+         ivrPropertyName:ivrName,
+         ivr_uuid:selectedIvr
+      },
+      defaultExitNode:"call_hangup"
+    };
     console.log({
       ivrName,
       selectedIvr,
