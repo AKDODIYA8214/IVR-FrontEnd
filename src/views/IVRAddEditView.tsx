@@ -142,11 +142,28 @@ export default function IVRAddEditView() {
       };
 
       setNodes((nds) => nds.concat(newNode));
+      setDrawer({
+        open: true,
+        node: newNode,
+        onClose: closeDrawer,
+        setData: (data) => {
+          dispatch({
+            type: IVRActionType.UPDATE_JSON_DATA,
+            payload: {
+              jsonData: {
+                ...state.jsonData,
+                [uid]: data,   
+              },
+            },
+          });
+        },
+      });
     },
     [reactFlowInstance]
   );
 
   const onNodeClick = (event:any,node:any) => {
+    console.log(node)
     console.log("Node clicked:", { event }, { node });
     setDrawer({
       open: true,

@@ -13,7 +13,7 @@ export interface props {
   edges: any;
 }
 
-function CustomPanel({edges}:props) {
+function CustomPanel() {
   const { state, dispatch } = useIVRContext();
   const router = useRouter();
   const onDragStart = (event: any, nodeType: any) => {
@@ -22,8 +22,7 @@ function CustomPanel({edges}:props) {
 
   const handleIVRAddEdit = () => {
     console.log(state)
-    console.log(edges)
-  }
+}
   
 
   return (
