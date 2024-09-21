@@ -66,7 +66,6 @@ export default function IVRAddEditView() {
   const closeDrawer = () => {
     setDrawer({ open: false, node: null, onClose: () => {}, setData: () => {} });
   };
-
   // const onConnect = useCallback((connection: any) => setEdges((eds: any) => addEdge({ ...connection, type: "simplebezier" }, eds) as any), [setEdges]);
 
   const onNodesChange = useCallback((changes: any) => setNodes((nds) => applyNodeChanges(changes, nds)), [setNodes]);
@@ -148,14 +147,22 @@ export default function IVRAddEditView() {
     [reactFlowInstance]
   );
 
-  const onNodeClick = (event: any, node: any) => {
+  const onNodeClick = (event:any,node:any) => {
     console.log("Node clicked:", { event }, { node });
     setDrawer({
       open: true,
       node: node,
       onClose: closeDrawer,
       setData: (data) => {
-        dispatch({ type: IVRActionType.UPDATE_JSON_DATA, payload: { ...state, jsonData: data } });
+        dispatch({
+          type: IVRActionType.UPDATE_JSON_DATA,
+          payload: {
+            jsonData: {
+              ...state.jsonData,
+              [node.id]: data,   
+            },
+          },
+        });
       },
     });
   };

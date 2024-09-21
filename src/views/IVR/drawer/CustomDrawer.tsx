@@ -1,13 +1,16 @@
 import { drawerProps } from "@/views/IVRAddEditView";
 import { Drawer, Typography, SvgIcon, IconButton, Divider } from "@mui/material";
+import Menu from '@/views/forms/Menu'
 import React from "react";
+import Hangup from "@/views/forms/Hangup";
+import Queue from '@/views/forms/Queue';
+import ApiConfig from "@/views/forms/Apiconfig";
 
 export interface props {
   drawer: drawerProps;
 }
 export default function CustomDrawer({ drawer }: props) {
   const { node, onClose, open, setData } = drawer;
-  console.log(node);
   return (
     <Drawer anchor="right" variant="temporary" open={open} onClose={() => onClose()} ModalProps={{ keepMounted: true }} className="sm:p-2" sx={{ "& .MuiDrawer-paper": { width: { xs: 300, sm: 400 } } }}>
       <div className="h-full w-full flex flex-col">
@@ -28,8 +31,15 @@ export default function CustomDrawer({ drawer }: props) {
           </div>
         </div>
         <Divider />
-        <div></div>
+        <div>
+          {node&&(node.type=='menunode'&&<Menu setData={setData} nodeid={node.id}/>)}
+          {node&&(node.type=='hangupnode'&&<Hangup setData={setData} nodeid={node.id}/>)}
+          {node&&(node.type=='apinode'&&<ApiConfig setData={setData} nodeid={node.id}/>)}
+          {node&&(node.type=='queuenode'&&<Queue setData={setData} nodeid={node.id}/>)}
+          {/* {node&&(node.type==''&&<Hangup setData={setData} nodeid={node.id}/>)} */}
+        </div>
       </div>
+
     </Drawer>
   );
 }

@@ -4,7 +4,7 @@ import { Box, Card, IconButton } from '@mui/material';
 import { TbBinaryTree2 } from "react-icons/tb";
 import { MdDelete } from "react-icons/md";
 
-export default function CaseWhen({ id }) {
+export default function CaseWhen({ id:any }) {
   const [showToolbox, setShowToolbox] = useState(true);
   const { setNodes } = useReactFlow();
   const toolboxRef = useRef(null); // Ref to the toolbox
@@ -21,7 +21,7 @@ export default function CaseWhen({ id }) {
   };
 
   // Hide toolbox when clicking outside
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event:any) => {
     if (toolboxRef.current && !toolboxRef.current.contains(event.target)) {
       setShowToolbox(false);
     }

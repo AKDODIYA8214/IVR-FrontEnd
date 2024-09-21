@@ -11,7 +11,7 @@ export interface IVRState {
   ivrName: string;
   language: string;
   ivrExtention: string;
-  jsonData: Object;
+  jsonData: {};
 }
 export interface IVRAction {
   type: IVRActionType;

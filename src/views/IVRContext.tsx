@@ -1,22 +1,21 @@
 "use client";
-import { IVRAction, IVRActionType, IVRContextType, IVRState } from "@/types/IVRContextType";
-import { createContext, useReducer, useContext, Dispatch, ReactNode } from "react";
+import {  IVRAction, IVRActionType, IVRContextType, IVRState } from "@/types/IVRContextType";
+import { createContext, useReducer, useContext, Dispatch, ReactNode, act } from "react";
 
-// Define the initial state
-
-// Define the reducer function
-
-const initialState: IVRState = { ivrName: "", language: "en", ivrExtention: "", jsonData: {} };
+const initialState: IVRState = { ivrName: "", language: "en", ivrExtention: "", jsonData:{} };
 function ivrContextReducer(state: IVRState, action: IVRAction): IVRState {
+  console.log('-------------------------------------->');
+  console.log(action.type);
+  console.log(action.payload);
   switch (action.type) {
     case IVRActionType.CHANGE_NAME:
-      return action.payload;
+      return {...state,language:action.payload.ivrName};
     case IVRActionType.CHANGE_LANGUAGE:
-      return action.payload;
+      return {...state,language:action.payload.language};
     case IVRActionType.CHANGE_EXTENTION:
-      return action.payload;
-    case IVRActionType.UPDATE_JSON_DATA:
-      return action.payload;
+      return {...state,ivrExtention:action.payload.ivrExtention};
+      case IVRActionType.UPDATE_JSON_DATA:
+      return {...state,jsonData:action.payload.jsonData};
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
@@ -24,6 +23,7 @@ function ivrContextReducer(state: IVRState, action: IVRAction): IVRState {
 
 // Create Context
 const IVRContext = createContext<IVRContextType | undefined>(undefined);
+
 
 // Create a provider component
 export const IVRContextProvider = ({ children }: { children: ReactNode }) => {
@@ -33,9 +33,5 @@ export const IVRContextProvider = ({ children }: { children: ReactNode }) => {
 
 // Create a custom hook to use the CounterContext
 export const useIVRContext = () => {
-  const context = useContext(IVRContext);
-  if (!context) {
-    throw new Error("useCounter must be used within a CounterProvider");
-  }
-  return context;
+  return useContext(IVRContext);
 };

@@ -1,17 +1,35 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField, Button, Container, Typography, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
-
-const Hangup: React.FC = () => {
+import { useIVRContext } from '../IVRContext';
+interface Props {
+  setData: Function,
+  nodeid: string
+}
+export const Hangup = ({ setData, nodeid }) => {
   // State to hold the name input
   const [name, setName] = useState<string>('');
   // State to hold the selected hangup cause
   const [hangupCause, setHangupCause] = useState<string>('');
-
+  const { jsonData } = useIVRContext();
   // Handler for form submission
+  useEffect(() => {
+    console.log(jsonData);
+  }, [jsonData]);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const hangup = {
+
+      type: "hangup",
+      properties: {
+        ivrPropertyName: name,
+        hangup_cause: hangupCause,
+      },
+      defaultExitNode: "call_hangup"
+    };
+    setData(hangup);
     console.log('Submitted:', { name, hangupCause });
   };
 
